@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+    <link href="/static/css/daisy_full.min.css" rel="stylesheet" type="text/css" />
+    <script src="/static/js/daisy_3.4.5.js"></script>
+</head>
+
+<body>
+
+    <!-- upload page style is file input full width, upload button below to the file input, responsetive -->
+    <!-- full width button back to home, margin top same wide -->
+     <!-- has a back to home button below of the submit button -->
+    <!-- content in center -->
+    <div class="container mx-auto p-4 flex justify-center items-center h-screen">
+        <form id="uploadForm" class="w-full max-w-lg">
+            <div class="flex items
+            -center border-b border-b-2 border-indigo-500 py-2">
+                <input id="fileInput" type="file" name="files" class="w-full" multiple>
+            </div>
+            <button type="submit" class="btn btn-primary w-full mt-4 btn-success">Upload</button>
+            <p id="uploadStatus" class="text-center mt-4"></p>
+            <a href="/" class="btn btn-primary w-full mt-4">Back to Home</a>
+        </form>
+    </div>
+
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const files = document.getElementById('fileInput').files;
+            const formData = new FormData();
+            var filenames = '';
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+                filenames = filenames + files[i].name + ', ';
+            }
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                if (result.code == 0) {
+                    document.getElementById('uploadStatus').innerText = filenames +  ' Upload successful!';
+                } else {
+                    document.getElementById('uploadStatus').innerText = 'Upload failed!';
+                }
+
+            } catch (error) {
+                document.getElementById('uploadStatus').innerText = 'Upload failed!';
+            }
+        });
+    </script>
+</body>
+
+</html>
