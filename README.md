@@ -10,6 +10,6 @@ anyone can upload file and browser files and download any file
 
 ### how to run this server
 `
-$ docker run -d -p 80:80 dosoos94/fileshare
+$ docker run -d -p 80:80 elone/fileshare
 `
 open your browser and type your address is ok!
