@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, send_from_directory
 from datetime import datetime
+from werkzeug.serving import get_interface_ip
+import socket
 import time
 import os
 
@@ -48,7 +50,8 @@ def index():
                 'create_time': date.strftime('%Y-%m-%d %H:%M:%S')
             } 
         )
-    return render_template('index.html', files=files)
+    main_url = 'http://' + get_interface_ip(socket.AF_INET)
+    return render_template('index.html', files=files, main_url=main_url)
 
 
 if __name__ == '__main__':

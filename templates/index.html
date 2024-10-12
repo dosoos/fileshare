@@ -14,10 +14,14 @@
 
         <div class="flex justify-between items-center mb-4">
             <h1 class="text-3xl font-bold">File List</h1>
+            <!-- show main url, click to copy -->
+            <div class="tooltip tooltip-open tooltip-bottom" data-tip="Click to copy" id="copytip">
+                <button onclick="copyToClipboard('{{ main_url }}')" class="btn">{{ main_url }}</button>
+            </div>
             <a href="/upload" class="btn btn-primary btn-success">Upload</a>
         </div>
 
-        <div class="shadow-md rounded-lg p-4">
+        <div class="shadow-md rounded-lg p-4 mt-10">
             <ul class="list-none">
                 {% for file in files %}
                 <li class="flex justify-between items-center py-2">
@@ -48,6 +52,16 @@
             } catch (error) {
                 alert('Delete failed!');
             }
+        }
+
+        function copyToClipboard(text) {
+            const input = document.createElement('input');
+            input.value = text;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            document.querySelector('#copytip').setAttribute('data-tip', 'Copied!');
         }
     </script>
 </body>
