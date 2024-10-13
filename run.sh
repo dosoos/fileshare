@@ -4,6 +4,4 @@
 pip install -r requirements.txt
 
 # Run the Flask server
-export FLASK_APP=app.py
-export FLASK_ENV=development
-flask run
+flask run --host=0.0.0.0 --port=80

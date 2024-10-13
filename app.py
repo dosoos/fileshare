@@ -41,6 +41,8 @@ def static_file(path):
 
 @app.route('/')
 def index():
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.makedirs(UPLOAD_FOLDER)
     files = []
     for file in os.listdir(UPLOAD_FOLDER):
         date = datetime.fromtimestamp(os.path.getctime(os.path.join(UPLOAD_FOLDER, file)))
